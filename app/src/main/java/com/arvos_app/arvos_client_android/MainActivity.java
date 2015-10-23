@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.arvos_app.arvos_client_android.model.Augment;
+import com.arvos_app.arvos_client_android.model.Directory;
 
 import java.util.List;
 
@@ -55,11 +56,24 @@ public class MainActivity extends Activity{
                 .build();
 
         ArvosService service = restAdapter.create(ArvosService.class);
-        service.getDirectory(new Callback<List<Augment>>() {
+        service.getAugments(new Callback<List<Augment>>() {
             @Override
             public void success(List<Augment> augments, Response response) {
                 Log.d(TAG, "SUCCESS");
-                Log.d(TAG, augments.get(1).toString());
+                Log.d(TAG, augments.get(0).toString());
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d(TAG, error.getMessage());
+            }
+        });
+        service.getDirectory(new Callback<List<Directory>>() {
+            @Override
+            public void success(List<Directory> directories, Response response) {
+                Log.d(TAG, "SUCCESS");
+                Log.d(TAG, directories.get(0).toString());
 
             }
 
